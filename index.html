@@ -189,6 +189,8 @@ Error message and password prompt
 
 <li>Java</li>
 
+<li>Map and Collectors.groupingBy</li>
+
 <li>Steram and collection</li>
 
 <li>Stream</li>
@@ -9118,7 +9120,7 @@ Error message and password prompt
 <div created="20190129094219350" creator="xinhuagu" modified="20190129094219350" modifier="xinhuagu" title="$:/state/toc/ContentTable/Java-Head2-306120943">
 <pre>open</pre>
 </div>
-<div created="20190129094242065" creator="xinhuagu" modified="20190129094242066" modifier="xinhuagu" title="$:/state/toc/ContentTable/Java-Stream-306120943">
+<div created="20190129094242065" creator="xinhuagu" modified="20190129215539943" modifier="xinhuagu" title="$:/state/toc/ContentTable/Java-Stream-306120943">
 <pre>open</pre>
 </div>
 <div created="20190129010642024" modified="20190129010642024" title="$:/state/toc/TableOfContents-Head1--1738364587">
@@ -9130,7 +9132,7 @@ Error message and password prompt
 <div created="20190129013606961" creator="x" modified="20190129013608371" modifier="xinhuag" title="$:/status/UserName">
 <pre>xinhuagu</pre>
 </div>
-<div created="20190129100631569" creator="xinhuagu" list="$:/ControlPanel Head1" modified="20190129100631570" modifier="xinhuagu" title="$:/StoryList">
+<div created="20190129222421219" creator="xinhuagu" list="[[Map and Collectors.groupingBy]] Java" modified="20190129222421219" modifier="xinhuagu" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -9311,6 +9313,61 @@ Error message and password prompt
 </div>
 <div created="20190129005929370" creator="xinhuagu" modified="20190129094208952" modifier="xinhuagu" tags="ContentTable" title="Java">
 <pre>dadfdaf</pre>
+</div>
+<div created="20190129215559585" creator="xinhuagu" modified="20190129224158071" modifier="xinhuagu" tags="Stream" title="Map and Collectors.groupingBy">
+<pre>例如，计算一个字符串里的字符个数
+
+```
+Map&lt;String,int&gt; map = new HashMap&lt;&gt;();
+Stream.of(str.split(&quot;&quot;)).map(a-&gt;map.merge(a,1,Integer::sum)).forEach(a-&gt;{})
+```
+或者下面两种方式也能得到相同的结果
+
+```
+Stream.of(str.split(&quot;&quot;)).collect(Collectors.toMap(a-&gt;a, a-&gt;1,Integer::sum) )
+
+```
+
+```
+Stream.of(str.split(&quot;&quot;)).collect(Collectors.groupingBy(a-&gt;a,Collectors.counting()))
+
+```
+复制一个map
+
+```
+Stream.of(map).map(Map::entrySet).flatMap(Collection::stream).collect(Collectors.toMap(Map.Entry::getKey,Map.Entry::getValue,Integer::sum))
+Stream.of(map).map(a-&gt;a.entrySet()).flatMap(Collection::stream).collect(Collectors.toMap(Map.Entry::getKey,Map.Entry::getValue))
+```
+Integer::sum可有可无，因为没有冲突entry存在。integer::sum为merge用的。
+
+! Collectors.groupingBy
+关于 Stream Collectors.groupingBy的两个重要的链接
+
+https://www.baeldung.com/java-groupingby-collector
+
+https://www.baeldung.com/java9-stream-collectors
+
+例子
+
+```
+//
+//find out the max apperence of any char in a String
+//
+int findMaxApperence(String in){
+ return Stream.of(in.split(&quot;&quot;)).collect(
+        Collectors.groupingBy(Function.identity(),Collectors.counting()))
+            .entrySet()
+            .stream()
+            .mapToInt(x-&gt;Math.toIntExact(x.getValue()))
+            .reduce(Integer::max)
+            .orElse(1);
+}
+
+```
+
+
+
+</pre>
 </div>
 <div created="20190129094025796" creator="xinhuagu" list="" modified="20190129095859709" modifier="xinhuagu" tags="Stream" title="Steram and collection">
 <pre>! About Concat and Merge:
