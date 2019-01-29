@@ -165,6 +165,10 @@ Error message and password prompt
 
 <li>$:/state/toc/ContentTable/Java-Head2-306120943</li>
 
+<li>$:/state/toc/ContentTable/Java-Math-306120943</li>
+
+<li>$:/state/toc/ContentTable/Java-Optional-306120943</li>
+
 <li>$:/state/toc/ContentTable/Java-Stream-306120943</li>
 
 <li>$:/state/toc/TableOfContents-Head1--1738364587</li>
@@ -183,13 +187,25 @@ Error message and password prompt
 
 <li>打发斯蒂芬</li>
 
+<li>得到stream流动元素中的最大值几种方法</li>
+
 <li>Contents</li>
 
 <li>ContentTable</li>
 
+<li>int 和 long 的互转</li>
+
 <li>Java</li>
 
+<li>LocalDate</li>
+
 <li>Map and Collectors.groupingBy</li>
+
+<li>Math</li>
+
+<li>Optional</li>
+
+<li>orElse() 和 orElseGet()的区别</li>
 
 <li>Steram and collection</li>
 
@@ -9102,7 +9118,7 @@ Error message and password prompt
 <div created="20190129094457887" creator="xinhuagu" modified="20190129094502572" modifier="xinhuagu" title="$:/state/showeditpreview">
 <pre>no</pre>
 </div>
-<div created="20190129093450412" creator="xinhuagu" modified="20190129100059825" modifier="xinhuagu" title="$:/state/sidebar">
+<div created="20190129093450412" creator="xinhuagu" modified="20190129231323578" modifier="xinhuagu" title="$:/state/sidebar">
 <pre>yes</pre>
 </div>
 <div created="20190129004201664" creator="xinhuagu" modified="20190129095431972" modifier="xinhuagu" title="$:/state/tab/sidebar--595412856">
@@ -9120,6 +9136,12 @@ Error message and password prompt
 <div created="20190129094219350" creator="xinhuagu" modified="20190129094219350" modifier="xinhuagu" title="$:/state/toc/ContentTable/Java-Head2-306120943">
 <pre>open</pre>
 </div>
+<div created="20190129233123231" creator="xinhuagu" modified="20190129233126498" modifier="xinhuagu" title="$:/state/toc/ContentTable/Java-Math-306120943">
+<pre>close</pre>
+</div>
+<div created="20190129232515372" creator="xinhuagu" modified="20190129232515372" modifier="xinhuagu" title="$:/state/toc/ContentTable/Java-Optional-306120943">
+<pre>open</pre>
+</div>
 <div created="20190129094242065" creator="xinhuagu" modified="20190129215539943" modifier="xinhuagu" title="$:/state/toc/ContentTable/Java-Stream-306120943">
 <pre>open</pre>
 </div>
@@ -9132,7 +9154,7 @@ Error message and password prompt
 <div created="20190129013606961" creator="x" modified="20190129013608371" modifier="xinhuag" title="$:/status/UserName">
 <pre>xinhuagu</pre>
 </div>
-<div created="20190129222421219" creator="xinhuagu" list="[[Map and Collectors.groupingBy]] Java" modified="20190129222421219" modifier="xinhuagu" title="$:/StoryList">
+<div created="20190129222421219" creator="xinhuagu" list="Math [[int 和 long 的互转]] [[orElse() 和 orElseGet()的区别]] LocalDate Optional Stream 得到stream流动元素中的最大值几种方法 [[Map and Collectors.groupingBy]] Java" modified="20190129230828775" modifier="xinhuagu" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -9301,6 +9323,33 @@ Error message and password prompt
 <div created="20190129004332991" creator="xinhuagu" list="" modified="20190129094208953" modifier="xinhuagu" tags="Java" title="打发斯蒂芬">
 <pre>大阿斯顿发</pre>
 </div>
+<div created="20190129224610409" creator="xinhuagu" modified="20190129225321276" modifier="xinhuagu" tags="Stream" title="得到stream流动元素中的最大值几种方法">
+<pre>
+```
+final Stream&lt;Long&gt; fibStream = makeFibStream(10);
+Long result = fibStream.reduce(Long::max).get();
+```
+
+```
+final Stream&lt;Long&gt; fibStream = makeFibStream(10);
+
+Optional&lt;Long&gt; co = 
+fibStream.collect(Collectors.maxBy(Comparator.comparing(Function.identity())));
+```
+
+或者直接
+
+```
+
+mapToInt().max()
+mapToLong().max()
+```
+
+
+
+
+</pre>
+</div>
 <div created="20190129004711374" modified="20190129005421498" tags="$:/tags/SideBar" title="Contents">
 <pre>&lt;$list filter={{$:/core/Filters/AllTiddlers!!filter}} template=&quot;$:/core/ui/ListItemTemplate&quot;/&gt;</pre>
 </div>
@@ -9311,8 +9360,36 @@ Error message and password prompt
 
 &lt;/div&gt;</pre>
 </div>
+<div created="20190129233026428" creator="xinhuagu" modified="20190129233107402" modifier="xinhuagu" tags="Math" title="int 和 long 的互转">
+<pre>Math.toIntExact(long)
+</pre>
+</div>
 <div created="20190129005929370" creator="xinhuagu" modified="20190129094208952" modifier="xinhuagu" tags="ContentTable" title="Java">
 <pre>dadfdaf</pre>
+</div>
+<div created="20190129231325311" creator="xinhuagu" modified="20190129232930878" modifier="xinhuagu" tags="Java" title="LocalDate">
+<pre>
+```
+LocalDate.now() 
+LocalDate.of(2019,Month.JAN,1)
+LocalDate.now().isBefore(LocalDate.of(2020,1,1))
+
+LocalTime.now(ZoneId.of(“xx”))
+LocalTime.of(12,20,25,40)
+
+LocalDateTime.now()
+
+LocalDateTime.of(LocalDate.now(),LocalTime.now())
+
+Instant.now()
+
+LocalDate.now().format(DateTimeFormatter.ofPattern(“d::MM::uuuu”)
+
+LocalDateTime dt = LocalDateTime.parse(&quot;27::Apr::2014 21::39::48&quot;,DateTimeFormatter.ofPattern(&quot;d::MMM::uuuu HH::mm::ss&quot;));
+
+```
+
+https://www.journaldev.com/2800/java-8-date-localdate-localdatetime-instant</pre>
 </div>
 <div created="20190129215559585" creator="xinhuagu" modified="20190129224158071" modifier="xinhuagu" tags="Stream" title="Map and Collectors.groupingBy">
 <pre>例如，计算一个字符串里的字符个数
@@ -9367,6 +9444,54 @@ int findMaxApperence(String in){
 
 
 
+</pre>
+</div>
+<div created="20190129233111031" creator="xinhuagu" modified="20190129233120728" modifier="xinhuagu" tags="Java" title="Math">
+<pre></pre>
+</div>
+<div created="20190129230902860" creator="xinhuagu" modified="20190129231257074" modifier="xinhuagu" tags="Java" title="Optional">
+<pre>Optional 的高级用法
+
+```
+@Test
+public void whenOptionalFilterWorks_thenCorrect() {
+    Integer year = 2016;
+    Optional&lt;Integer&gt; yearOptional = Optional.of(year);
+    boolean is2016 = yearOptional.filter(y -&gt; y == 2016).isPresent();
+    assertTrue(is2016);
+    boolean is2017 = yearOptional.filter(y -&gt; y == 2017).isPresent();
+    assertFalse(is2017);
+}
+```
+
+
+
+```
+public boolean priceIsInRange2(Modem modem2) {
+     return Optional.ofNullable(modem2)
+       .map(Modem::getPrice)
+       .filter(p -&gt; p &gt;= 10)
+       .filter(p -&gt; p &lt;= 15)
+       .isPresent();
+ }
+```
+
+https://www.baeldung.com/java-optional
+
+https://www.baeldung.com/java-9-optional
+
+https://www.baeldung.com/java-filter-stream-of-optional
+
+</pre>
+</div>
+<div created="20190129232418396" creator="xinhuagu" modified="20190129232604175" modifier="xinhuagu" tags="Optional" title="orElse() 和 orElseGet()的区别">
+<pre>Optional.orElse() 和 Optional.orElseGet()区别在前面是value后面是supplier。所以
+
+```
+Optional.orElseGet( ()-&gt;method());
+Optional.orElse(method());
+```
+JHM性能比较下来，orElseGet性能最好
 </pre>
 </div>
 <div created="20190129094025796" creator="xinhuagu" list="" modified="20190129095859709" modifier="xinhuagu" tags="Stream" title="Steram and collection">
