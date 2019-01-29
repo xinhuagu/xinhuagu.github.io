@@ -9081,8 +9081,8 @@ Error message and password prompt
     }
 }</pre>
 </div>
-<div created="20190129093111329" creator="xinhuagu" modified="20190129093113871" modifier="xinhuagu" title="$:/DefaultTiddlers">
-<pre>Head1
+<div created="20190129093111329" creator="xinhuagu" modified="20190129100637896" modifier="xinhuagu" title="$:/DefaultTiddlers">
+<pre>Java
 </pre>
 </div>
 <div title="$:/isEncrypted">
@@ -9100,10 +9100,10 @@ Error message and password prompt
 <div created="20190129094457887" creator="xinhuagu" modified="20190129094502572" modifier="xinhuagu" title="$:/state/showeditpreview">
 <pre>no</pre>
 </div>
-<div created="20190129093450412" creator="xinhuagu" modified="20190129093453980" modifier="xinhuagu" title="$:/state/sidebar">
+<div created="20190129093450412" creator="xinhuagu" modified="20190129100059825" modifier="xinhuagu" title="$:/state/sidebar">
 <pre>yes</pre>
 </div>
-<div created="20190129004201664" creator="xinhuagu" modified="20190129093456708" modifier="xinhuagu" title="$:/state/tab/sidebar--595412856">
+<div created="20190129004201664" creator="xinhuagu" modified="20190129095431972" modifier="xinhuagu" title="$:/state/tab/sidebar--595412856">
 <pre>ContentTable</pre>
 </div>
 <div created="20190129015603663" creator="xinhuagu" modified="20190129093500638" modifier="xinhuagu" title="$:/state/toc/ContentTable-Head1-306120943">
@@ -9130,7 +9130,7 @@ Error message and password prompt
 <div created="20190129013606961" creator="x" modified="20190129013608371" modifier="xinhuag" title="$:/status/UserName">
 <pre>xinhuagu</pre>
 </div>
-<div created="20190129093140673" creator="xinhuagu" list="Stream [[Steram and collection]]" modified="20190129094956365" modifier="xinhuagu" title="$:/StoryList">
+<div created="20190129100631569" creator="xinhuagu" list="$:/ControlPanel Head1" modified="20190129100631570" modifier="xinhuagu" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -9312,8 +9312,44 @@ Error message and password prompt
 <div created="20190129005929370" creator="xinhuagu" modified="20190129094208952" modifier="xinhuagu" tags="ContentTable" title="Java">
 <pre>dadfdaf</pre>
 </div>
-<div created="20190129094025796" creator="xinhuagu" list="" modified="20190129094954567" modifier="xinhuagu" tags="Stream" title="Steram and collection">
-<pre></pre>
+<div created="20190129094025796" creator="xinhuagu" list="" modified="20190129095859709" modifier="xinhuagu" tags="Stream" title="Steram and collection">
+<pre>! About Concat and Merge:
+(https://www.baeldung.com/java-merge-streams)
+
+```
+   Stream&lt;Integer&gt; stream1 = Stream.of(1, 3, 5);
+    Stream&lt;Integer&gt; stream2 = Stream.of(2, 4, 6);
+    Stream&lt;Integer&gt; resultingStream = Stream.concat(stream1, stream2);
+```
+
+```
+    Stream&lt;Integer&gt; stream1 = Stream.of(1, 3, 5);
+    Stream&lt;Integer&gt; stream2 = Stream.of(2, 4, 6);
+    Stream&lt;Integer&gt; stream3 = Stream.of(18, 15, 36);
+    Stream&lt;Integer&gt; stream4 = Stream.of(99);
+ 
+    Stream&lt;Integer&gt; resultingStream = Stream.of(stream1, stream2, stream3, stream4).flatMap(i -&gt; i);
+
+```
+
+! Handle nullable colleciton:
+
+```
+public Stream&lt;String&gt; collectionToStream(Collection&lt;String&gt; collection) {
+    return Optional.ofNullable(collection)
+                              .map(Collection::stream)
+                              .orElseGet(Stream::empty);
+}
+```
+
+
+```
+Stream&lt;String&gt; collectionAsStream(Collection&lt;String&gt; collection) {  
+  return collection.stream().flatMap(s -&gt; Stream.ofNullable(s));
+}
+```
+
+</pre>
 </div>
 <div created="20190129010221156" creator="xinhuagu" list="" modified="20190129095003059" modifier="xinhuagu" tags="Java" title="Stream">
 <pre>!! Collect() 只有两种
