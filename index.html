@@ -137,6 +137,10 @@ Error message and password prompt
 
 <p>This <a class="tc-tiddlylink-external" href="https://tiddlywiki.com" rel="noopener noreferrer" target="_blank">TiddlyWiki</a> contains the following tiddlers:</p><p><ul>
 
+<li>.groupingBy .toMap</li>
+
+<li>.mapping   .flatmapping .filtering .counting</li>
+
 <li>$:/config/RelinkOnRename</li>
 
 <li>$:/core</li>
@@ -171,6 +175,8 @@ Error message and password prompt
 
 <li>$:/state/toc/ContentTable/Java-Stream-306120943</li>
 
+<li>$:/state/toc/ContentTable/Java/Stream-Collectors-306120943</li>
+
 <li>$:/state/toc/TableOfContents-Head1--1738364587</li>
 
 <li>$:/state/toc/TableOfContents-Head1-306120943</li>
@@ -189,6 +195,8 @@ Error message and password prompt
 
 <li>得到stream流动元素中的最大值几种方法</li>
 
+<li>Collectors</li>
+
 <li>Contents</li>
 
 <li>ContentTable</li>
@@ -199,17 +207,15 @@ Error message and password prompt
 
 <li>LocalDate</li>
 
-<li>Map and Collectors.groupingBy</li>
-
 <li>Math</li>
 
 <li>Optional</li>
 
 <li>orElse() 和 orElseGet()的区别</li>
 
-<li>Steram and collection</li>
-
 <li>Stream</li>
+
+<li>Stream and collection</li>
 
 <li>TEST</li>
 
@@ -223,6 +229,85 @@ Error message and password prompt
 <!--~~ Ordinary tiddlers ~~-->
 
 <div id="storeArea" style="display:none;">
+<div created="20190129234304966" creator="xinhuagu" modified="20190129234743966" modifier="xinhuagu" tags="Collectors" title=".groupingBy .toMap">
+<pre>例如，计算一个字符串里的字符个数
+
+```
+Map&lt;String,int&gt; map = new HashMap&lt;&gt;();
+Stream.of(str.split(&quot;&quot;)).map(a-&gt;map.merge(a,1,Integer::sum)).forEach(a-&gt;{})
+```
+或者下面两种方式也能得到相同的结果
+
+```
+Stream.of(str.split(&quot;&quot;)).collect(Collectors.toMap(a-&gt;a, a-&gt;1,Integer::sum) )
+
+```
+
+```
+Stream.of(str.split(&quot;&quot;)).collect(Collectors.groupingBy(a-&gt;a,Collectors.counting()))
+
+```
+复制一个map
+
+```
+Stream.of(map).map(Map::entrySet).flatMap(Collection::stream).collect(Collectors.toMap(Map.Entry::getKey,Map.Entry::getValue,Integer::sum))
+Stream.of(map).map(a-&gt;a.entrySet()).flatMap(Collection::stream).collect(Collectors.toMap(Map.Entry::getKey,Map.Entry::getValue))
+```
+Integer::sum可有可无，因为没有冲突entry存在。integer::sum为merge用的。
+
+! Collectors.groupingBy
+关于 Stream Collectors.groupingBy的两个重要的链接
+
+https://www.baeldung.com/java-groupingby-collector
+
+https://www.baeldung.com/java9-stream-collectors
+
+例子
+
+```
+//
+//find out the max apperence of any char in a String
+//
+int findMaxApperence(String in){
+ return Stream.of(in.split(&quot;&quot;)).collect(
+        Collectors.groupingBy(Function.identity(),Collectors.counting()))
+            .entrySet()
+            .stream()
+            .mapToInt(x-&gt;Math.toIntExact(x.getValue()))
+            .reduce(Integer::max)
+            .orElse(1);
+}
+
+```
+
+
+
+</pre>
+</div>
+<div created="20190129234418007" creator="xinhuagu" modified="20190129234930035" modifier="xinhuagu" tags="Collectors" title=".mapping   .flatmapping .filtering .counting">
+<pre>https://www.baeldung.com/java9-stream-collectors
+
+
+```
+@Test
+public void givenList_whenSatifyPredicate_thenMapValueWithOccurences() {
+    List&lt;Integer&gt; numbers = List.of(1, 2, 3, 5, 5);
+ 
+    Map&lt;Integer, Long&gt; result = numbers.stream()
+      .filter(val -&gt; val &gt; 3)
+      .collect(Collectors.groupingBy(i -&gt; i, Collectors.counting()));
+ 
+    assertEquals(1, result.size());
+ 
+    result = numbers.stream()
+      .collect(Collectors.groupingBy(i -&gt; i,
+        Collectors.filtering(val -&gt; val &gt; 3, Collectors.counting())));
+ 
+    assertEquals(4, result.size());
+}
+```
+</pre>
+</div>
 <div created="20190129094207308" creator="xinhuagu" modified="20190129094207308" modifier="xinhuagu" title="$:/config/RelinkOnRename">
 <pre>yes</pre>
 </div>
@@ -9136,13 +9221,16 @@ Error message and password prompt
 <div created="20190129094219350" creator="xinhuagu" modified="20190129094219350" modifier="xinhuagu" title="$:/state/toc/ContentTable/Java-Head2-306120943">
 <pre>open</pre>
 </div>
-<div created="20190129233123231" creator="xinhuagu" modified="20190129233126498" modifier="xinhuagu" title="$:/state/toc/ContentTable/Java-Math-306120943">
-<pre>close</pre>
+<div created="20190129233123231" creator="xinhuagu" modified="20190129233152640" modifier="xinhuagu" title="$:/state/toc/ContentTable/Java-Math-306120943">
+<pre>open</pre>
 </div>
 <div created="20190129232515372" creator="xinhuagu" modified="20190129232515372" modifier="xinhuagu" title="$:/state/toc/ContentTable/Java-Optional-306120943">
 <pre>open</pre>
 </div>
 <div created="20190129094242065" creator="xinhuagu" modified="20190129215539943" modifier="xinhuagu" title="$:/state/toc/ContentTable/Java-Stream-306120943">
+<pre>open</pre>
+</div>
+<div created="20190129234414586" creator="xinhuagu" modified="20190129234414586" modifier="xinhuagu" title="$:/state/toc/ContentTable/Java/Stream-Collectors-306120943">
 <pre>open</pre>
 </div>
 <div created="20190129010642024" modified="20190129010642024" title="$:/state/toc/TableOfContents-Head1--1738364587">
@@ -9154,7 +9242,7 @@ Error message and password prompt
 <div created="20190129013606961" creator="x" modified="20190129013608371" modifier="xinhuag" title="$:/status/UserName">
 <pre>xinhuagu</pre>
 </div>
-<div created="20190129222421219" creator="xinhuagu" list="Math [[int 和 long 的互转]] [[orElse() 和 orElseGet()的区别]] LocalDate Optional Stream 得到stream流动元素中的最大值几种方法 [[Map and Collectors.groupingBy]] Java" modified="20190129230828775" modifier="xinhuagu" title="$:/StoryList">
+<div created="20190129222421219" creator="xinhuagu" list="[[orElse() 和 orElseGet()的区别]] LocalDate [[.mapping   .flatmapping .filtering .counting]] [[.groupingBy .toMap]] Collectors [[int 和 long 的互转]]" modified="20190129234850471" modifier="xinhuagu" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -9350,6 +9438,9 @@ mapToLong().max()
 
 </pre>
 </div>
+<div created="20190129234243908" creator="xinhuagu" modified="20190129234259951" modifier="xinhuagu" tags="Stream" title="Collectors">
+<pre></pre>
+</div>
 <div created="20190129004711374" modified="20190129005421498" tags="$:/tags/SideBar" title="Contents">
 <pre>&lt;$list filter={{$:/core/Filters/AllTiddlers!!filter}} template=&quot;$:/core/ui/ListItemTemplate&quot;/&gt;</pre>
 </div>
@@ -9360,8 +9451,12 @@ mapToLong().max()
 
 &lt;/div&gt;</pre>
 </div>
-<div created="20190129233026428" creator="xinhuagu" modified="20190129233107402" modifier="xinhuagu" tags="Math" title="int 和 long 的互转">
-<pre>Math.toIntExact(long)
+<div created="20190129233026428" creator="xinhuagu" modified="20190129233502705" modifier="xinhuagu" tags="Math" title="int 和 long 的互转">
+<pre>
+```
+Math.toIntExact(long)
+```
+
 </pre>
 </div>
 <div created="20190129005929370" creator="xinhuagu" modified="20190129094208952" modifier="xinhuagu" tags="ContentTable" title="Java">
@@ -9390,61 +9485,6 @@ LocalDateTime dt = LocalDateTime.parse(&quot;27::Apr::2014 21::39::48&quot;,Date
 ```
 
 https://www.journaldev.com/2800/java-8-date-localdate-localdatetime-instant</pre>
-</div>
-<div created="20190129215559585" creator="xinhuagu" modified="20190129224158071" modifier="xinhuagu" tags="Stream" title="Map and Collectors.groupingBy">
-<pre>例如，计算一个字符串里的字符个数
-
-```
-Map&lt;String,int&gt; map = new HashMap&lt;&gt;();
-Stream.of(str.split(&quot;&quot;)).map(a-&gt;map.merge(a,1,Integer::sum)).forEach(a-&gt;{})
-```
-或者下面两种方式也能得到相同的结果
-
-```
-Stream.of(str.split(&quot;&quot;)).collect(Collectors.toMap(a-&gt;a, a-&gt;1,Integer::sum) )
-
-```
-
-```
-Stream.of(str.split(&quot;&quot;)).collect(Collectors.groupingBy(a-&gt;a,Collectors.counting()))
-
-```
-复制一个map
-
-```
-Stream.of(map).map(Map::entrySet).flatMap(Collection::stream).collect(Collectors.toMap(Map.Entry::getKey,Map.Entry::getValue,Integer::sum))
-Stream.of(map).map(a-&gt;a.entrySet()).flatMap(Collection::stream).collect(Collectors.toMap(Map.Entry::getKey,Map.Entry::getValue))
-```
-Integer::sum可有可无，因为没有冲突entry存在。integer::sum为merge用的。
-
-! Collectors.groupingBy
-关于 Stream Collectors.groupingBy的两个重要的链接
-
-https://www.baeldung.com/java-groupingby-collector
-
-https://www.baeldung.com/java9-stream-collectors
-
-例子
-
-```
-//
-//find out the max apperence of any char in a String
-//
-int findMaxApperence(String in){
- return Stream.of(in.split(&quot;&quot;)).collect(
-        Collectors.groupingBy(Function.identity(),Collectors.counting()))
-            .entrySet()
-            .stream()
-            .mapToInt(x-&gt;Math.toIntExact(x.getValue()))
-            .reduce(Integer::max)
-            .orElse(1);
-}
-
-```
-
-
-
-</pre>
 </div>
 <div created="20190129233111031" creator="xinhuagu" modified="20190129233120728" modifier="xinhuagu" tags="Java" title="Math">
 <pre></pre>
@@ -9494,45 +9534,6 @@ Optional.orElse(method());
 JHM性能比较下来，orElseGet性能最好
 </pre>
 </div>
-<div created="20190129094025796" creator="xinhuagu" list="" modified="20190129095859709" modifier="xinhuagu" tags="Stream" title="Steram and collection">
-<pre>! About Concat and Merge:
-(https://www.baeldung.com/java-merge-streams)
-
-```
-   Stream&lt;Integer&gt; stream1 = Stream.of(1, 3, 5);
-    Stream&lt;Integer&gt; stream2 = Stream.of(2, 4, 6);
-    Stream&lt;Integer&gt; resultingStream = Stream.concat(stream1, stream2);
-```
-
-```
-    Stream&lt;Integer&gt; stream1 = Stream.of(1, 3, 5);
-    Stream&lt;Integer&gt; stream2 = Stream.of(2, 4, 6);
-    Stream&lt;Integer&gt; stream3 = Stream.of(18, 15, 36);
-    Stream&lt;Integer&gt; stream4 = Stream.of(99);
- 
-    Stream&lt;Integer&gt; resultingStream = Stream.of(stream1, stream2, stream3, stream4).flatMap(i -&gt; i);
-
-```
-
-! Handle nullable colleciton:
-
-```
-public Stream&lt;String&gt; collectionToStream(Collection&lt;String&gt; collection) {
-    return Optional.ofNullable(collection)
-                              .map(Collection::stream)
-                              .orElseGet(Stream::empty);
-}
-```
-
-
-```
-Stream&lt;String&gt; collectionAsStream(Collection&lt;String&gt; collection) {  
-  return collection.stream().flatMap(s -&gt; Stream.ofNullable(s));
-}
-```
-
-</pre>
-</div>
 <div created="20190129010221156" creator="xinhuagu" list="" modified="20190129095003059" modifier="xinhuagu" tags="Java" title="Stream">
 <pre>!! Collect() 只有两种
 
@@ -9572,6 +9573,45 @@ optional&lt;T&gt; reduce(BinaryOperator&lt;T&gt; accumulator);
 ```
 返回值是针对stream中流动元素的type T的optional。
 
+
+</pre>
+</div>
+<div created="20190129094025796" creator="xinhuagu" list="" modified="20190129233433461" modifier="xinhuagu" tags="Stream" title="Stream and collection">
+<pre>! About Concat and Merge:
+(https://www.baeldung.com/java-merge-streams)
+
+```
+   Stream&lt;Integer&gt; stream1 = Stream.of(1, 3, 5);
+    Stream&lt;Integer&gt; stream2 = Stream.of(2, 4, 6);
+    Stream&lt;Integer&gt; resultingStream = Stream.concat(stream1, stream2);
+```
+
+```
+    Stream&lt;Integer&gt; stream1 = Stream.of(1, 3, 5);
+    Stream&lt;Integer&gt; stream2 = Stream.of(2, 4, 6);
+    Stream&lt;Integer&gt; stream3 = Stream.of(18, 15, 36);
+    Stream&lt;Integer&gt; stream4 = Stream.of(99);
+ 
+    Stream&lt;Integer&gt; resultingStream = Stream.of(stream1, stream2, stream3, stream4).flatMap(i -&gt; i);
+
+```
+
+! Handle nullable colleciton:
+
+```
+public Stream&lt;String&gt; collectionToStream(Collection&lt;String&gt; collection) {
+    return Optional.ofNullable(collection)
+                              .map(Collection::stream)
+                              .orElseGet(Stream::empty);
+}
+```
+
+
+```
+Stream&lt;String&gt; collectionAsStream(Collection&lt;String&gt; collection) {  
+  return collection.stream().flatMap(s -&gt; Stream.ofNullable(s));
+}
+```
 
 </pre>
 </div>
