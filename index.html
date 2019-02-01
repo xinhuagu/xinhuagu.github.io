@@ -139,6 +139,18 @@ Error message and password prompt
 
 <li>.ofNullable (Handle nullable colleciton)</li>
 
+<li>(general)Item:61 Prefer primitive type to boxed primitives</li>
+
+<li>(lamda)Item 46: Prefer side-effect-free functions in streams</li>
+
+<li>(lamdas)Item 42: Prefer method references to lambdas</li>
+
+<li>(lamdas)Item 43: Prefer lambdas to anoymous classes</li>
+
+<li>(lamdas)Item 44: Favor the use of standard functional interfaces</li>
+
+<li>(lamdas)Item 48: Use caution when making streams parallel</li>
+
 <li>$:/config/RelinkOnRename</li>
 
 <li>$:/core</li>
@@ -159,6 +171,8 @@ Error message and password prompt
 
 <li>$:/state/tab/sidebar--595412856</li>
 
+<li>$:/state/toc/ContentTable-Clean Code-306120943</li>
+
 <li>$:/state/toc/ContentTable-Head1-306120943</li>
 
 <li>$:/state/toc/ContentTable-Java--1738364587</li>
@@ -168,6 +182,8 @@ Error message and password prompt
 <li>$:/state/toc/ContentTable-Reactive-306120943</li>
 
 <li>$:/state/toc/ContentTable-Spring-306120943</li>
+
+<li>$:/state/toc/ContentTable/Clean Code-Effective Java-306120943</li>
 
 <li>$:/state/toc/ContentTable/Head1-Head2-306120943</li>
 
@@ -195,9 +211,9 @@ Error message and password prompt
 
 <li>$:/themes/tiddlywiki/vanilla</li>
 
-<li>打发斯蒂芬</li>
-
 <li>得到stream流动元素中的最大值几种方法</li>
+
+<li>Clean Code</li>
 
 <li>Collectors</li>
 
@@ -212,6 +228,8 @@ Error message and password prompt
 <li>Contents</li>
 
 <li>ContentTable</li>
+
+<li>Effective Java</li>
 
 <li>int 和 long 的互转</li>
 
@@ -253,6 +271,72 @@ Error message and password prompt
 <div id="storeArea" style="display:none;">
 <div created="20190130000624668" creator="xinhuagu" modified="20190130145415468" modifier="xinhuagu" tags="Optional" title=".ofNullable (Handle nullable colleciton)">
 <pre>[[Stream.of .concat .ofNullable]] 最后</pre>
+</div>
+<div created="20190201101229276" creator="xinhuagu" modified="20190201102502357" modifier="xinhuagu" tags="[[Effective Java]]" title="(general)Item:61 Prefer primitive type to boxed primitives">
+<pre></pre>
+</div>
+<div created="20190201102037721" creator="xinhuagu" modified="20190201102412659" modifier="xinhuagu" tags="[[Effective Java]]" title="(lamda)Item 46: Prefer side-effect-free functions in streams">
+<pre>A forEach operation that does anything more than present the result of the computation performed by a stream is a &quot;bad smell in code&quot;, as is a lambda that mutates state. 
+
+```
+
+//proper use of streams to initialize a frequency table
+Map&lt;String,Long&gt; freq;
+try(Stream&lt;String&gt; words = new Scanner(file).tokens()){
+    freq=words.collect(groupingBy(String::toLowerCase,counting()));
+```
+</pre>
+</div>
+<div created="20190201094532320" creator="xinhuagu" modified="20190201102441595" modifier="xinhuagu" tags="[[Effective Java]]" title="(lamdas)Item 42: Prefer method references to lambdas">
+<pre>|!Ref Type|!Example|!Lambda Equivalent|
+|Static|Integer::parseInt|str-&gt;Integer.parseInt(str)|
+|Bound|Instant.now()::isAfter|Instant then = Instant.now();t-&gt;then.isAfter(t)|
+|Unbound|String::toLowerCase|str-&gt;str.toLowerCase()|
+|Class Constructor|TreeMap&lt;K,V&gt;::new|()-&gt;new TreeMap&lt;K,V&gt;|
+|Array Constructor|int[]::new|len-&gt;new int[len]|</pre>
+</div>
+<div created="20190201093731100" creator="xinhuagu" modified="20190201095928342" modifier="xinhuagu" tags="[[Effective Java]]" title="(lamdas)Item 43: Prefer lambdas to anoymous classes">
+<pre>!Enum with function obj fields &amp; constant-specific beavior
+
+```
+public enum Operation{
+  PLUS(&quot;+&quot;,(x,y)-&gt;x+y),
+  MINUS(&quot;-&quot;,(x,y)-&gt;x-y),
+  TIMES(&quot;*&quot;,(x,y)-&gt;x*y);
+
+  private final String symbol;
+  private final DoubleBinaryOperator op;
+  
+  Operation(String symbol, DoubleBinaryOperator op){
+     this.symbol=symbol;
+     this.op=op;
+   }
+  @Override public String toString(){ return symbol;}
+  public double apply(double x, double y){
+      return op.applyAsDouble(x,y);
+   }
+```
+</pre>
+</div>
+<div created="20190201095943885" creator="xinhuagu" modified="20190201101534895" modifier="xinhuagu" tags="[[Effective Java]]" title="(lamdas)Item 44: Favor the use of standard functional interfaces">
+<pre>|!Interface|!Function Signature|!Example|
+| UnaryOperator&amp;lt;T&amp;gt;|T apply(T t)| String::toLowerCase|
+|BinaryOperator&amp;lt;T&amp;gt;|T apply(T t1,T t2)|BigInteger::add|
+|Predicate&amp;lt;T&amp;gt;|boolean test(T t)|Collection::isEmpty|
+|Function&amp;lt;T&amp;gt;|R apply(T,t)|Arrays::asList|
+|Supplier&amp;lt;T&amp;gt;|T get()|Instant::now|
+|Consumer&amp;lt;T&amp;gt;|void accept(T t)|System.out::println|
+
+''Always annotate your function interfaces with the @FunctionalInterface annotation''</pre>
+</div>
+<div created="20190201103043629" creator="xinhuagu" modified="20190201103940189" modifier="xinhuagu" tags="[[Effective Java]]" title="(lamdas)Item 48: Use caution when making streams parallel">
+<pre>Aa a rule, performance gains from parallelism are best on streams over ArrayList,HashMap,HashSet, and ConcurrentHashMap instances; arrays; int ranges; and long ranges.
+
+Not only can parallelizing a stream lead to poor performance, including liveness failures; it can lead to incorrect results and unpredictable behavior.
+
+Under the right circumstances, it is possible to achieve near-linear speedup in the number of processor cores simply by adding a parallel call to a stream pipeline.
+
+</pre>
 </div>
 <div created="20190129094207308" creator="xinhuagu" modified="20190129094207308" modifier="xinhuagu" title="$:/config/RelinkOnRename">
 <pre>yes</pre>
@@ -9149,11 +9233,14 @@ Error message and password prompt
 <div created="20190129094457887" creator="xinhuagu" modified="20190129094502572" modifier="xinhuagu" title="$:/state/showeditpreview">
 <pre>no</pre>
 </div>
-<div created="20190129093450412" creator="xinhuagu" modified="20190129231323578" modifier="xinhuagu" title="$:/state/sidebar">
+<div created="20190129093450412" creator="xinhuagu" modified="20190201095329910" modifier="xinhuagu" title="$:/state/sidebar">
 <pre>yes</pre>
 </div>
-<div created="20190129004201664" creator="xinhuagu" modified="20190130162246406" modifier="xinhuagu" title="$:/state/tab/sidebar--595412856">
+<div created="20190129004201664" creator="xinhuagu" modified="20190201103039593" modifier="xinhuagu" title="$:/state/tab/sidebar--595412856">
 <pre>ContentTable</pre>
+</div>
+<div created="20190201093711701" creator="xinhuagu" modified="20190201093757644" modifier="xinhuagu" title="$:/state/toc/ContentTable-Clean Code-306120943">
+<pre>open</pre>
 </div>
 <div created="20190129015603663" creator="xinhuagu" modified="20190129093500638" modifier="xinhuagu" title="$:/state/toc/ContentTable-Head1-306120943">
 <pre>open</pre>
@@ -9161,13 +9248,16 @@ Error message and password prompt
 <div created="20190130124101642" creator="xinhuagu" modified="20190130124103300" modifier="xinhuagu" title="$:/state/toc/ContentTable-Java--1738364587">
 <pre>close</pre>
 </div>
-<div created="20190129094217559" creator="xinhuagu" modified="20190130204526201" modifier="xinhuagu" title="$:/state/toc/ContentTable-Java-306120943">
-<pre>close</pre>
-</div>
-<div created="20190130204628419" creator="xinhuagu" modified="20190130204628420" modifier="xinhuagu" title="$:/state/toc/ContentTable-Reactive-306120943">
+<div created="20190129094217559" creator="xinhuagu" modified="20190201102752414" modifier="xinhuagu" title="$:/state/toc/ContentTable-Java-306120943">
 <pre>open</pre>
 </div>
-<div created="20190130204624036" creator="xinhuagu" modified="20190130204624036" modifier="xinhuagu" title="$:/state/toc/ContentTable-Spring-306120943">
+<div created="20190130204628419" creator="xinhuagu" modified="20190201093323603" modifier="xinhuagu" title="$:/state/toc/ContentTable-Reactive-306120943">
+<pre>close</pre>
+</div>
+<div created="20190130204624036" creator="xinhuagu" modified="20190201093324541" modifier="xinhuagu" title="$:/state/toc/ContentTable-Spring-306120943">
+<pre>close</pre>
+</div>
+<div created="20190201094525466" creator="xinhuagu" modified="20190201094525466" modifier="xinhuagu" title="$:/state/toc/ContentTable/Clean Code-Effective Java-306120943">
 <pre>open</pre>
 </div>
 <div created="20190129094115454" creator="xinhuagu" modified="20190129094115454" modifier="xinhuagu" title="$:/state/toc/ContentTable/Head1-Head2-306120943">
@@ -9176,13 +9266,13 @@ Error message and password prompt
 <div created="20190129094219350" creator="xinhuagu" modified="20190129094219350" modifier="xinhuagu" title="$:/state/toc/ContentTable/Java-Head2-306120943">
 <pre>open</pre>
 </div>
-<div created="20190129233123231" creator="xinhuagu" modified="20190130000918211" modifier="xinhuagu" title="$:/state/toc/ContentTable/Java-Math-306120943">
-<pre>open</pre>
+<div created="20190129233123231" creator="xinhuagu" modified="20190201093319605" modifier="xinhuagu" title="$:/state/toc/ContentTable/Java-Math-306120943">
+<pre>close</pre>
 </div>
-<div created="20190129232515372" creator="xinhuagu" modified="20190130000917444" modifier="xinhuagu" title="$:/state/toc/ContentTable/Java-Optional-306120943">
-<pre>open</pre>
+<div created="20190129232515372" creator="xinhuagu" modified="20190201093321429" modifier="xinhuagu" title="$:/state/toc/ContentTable/Java-Optional-306120943">
+<pre>close</pre>
 </div>
-<div created="20190129094242065" creator="xinhuagu" modified="20190130000907905" modifier="xinhuagu" title="$:/state/toc/ContentTable/Java-Stream-306120943">
+<div created="20190129094242065" creator="xinhuagu" modified="20190201102759145" modifier="xinhuagu" title="$:/state/toc/ContentTable/Java-Stream-306120943">
 <pre>open</pre>
 </div>
 <div created="20190129234414586" creator="xinhuagu" modified="20190130153230333" modifier="xinhuagu" title="$:/state/toc/ContentTable/Java/Stream-Collectors-306120943">
@@ -9197,7 +9287,7 @@ Error message and password prompt
 <div created="20190129013606961" creator="x" modified="20190129013608371" modifier="xinhuag" title="$:/status/UserName">
 <pre>xinhuagu</pre>
 </div>
-<div created="20190130000900584" creator="xinhuagu" list="[[Project reactive]] Spring Reactive ContentTable Concurrent Java" modified="20190130162222498" modifier="xinhuagu" title="$:/StoryList">
+<div created="20190130000900584" creator="xinhuagu" list="[[(lamdas)Item 48: Use caution when making streams parallel]]" modified="20190201102807151" modifier="xinhuagu" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -9363,9 +9453,6 @@ Error message and password prompt
     }
 }</pre>
 </div>
-<div created="20190129004332991" creator="xinhuagu" list="" modified="20190129094208953" modifier="xinhuagu" tags="Java" title="打发斯蒂芬">
-<pre>大阿斯顿发</pre>
-</div>
 <div created="20190129224610409" creator="xinhuagu" modified="20190129225321276" modifier="xinhuagu" tags="Stream" title="得到stream流动元素中的最大值几种方法">
 <pre>```
 final Stream&lt;Long&gt; fibStream = makeFibStream(10);
@@ -9391,6 +9478,9 @@ mapToLong().max()
 
 
 </pre>
+</div>
+<div created="20190201093329012" creator="xinhuagu" modified="20190201093342481" modifier="xinhuagu" tags="ContentTable" title="Clean Code">
+<pre></pre>
 </div>
 <div created="20190129234243908" creator="xinhuagu" modified="20190129234259951" modifier="xinhuagu" tags="Stream" title="Collectors">
 <pre></pre>
@@ -9499,6 +9589,9 @@ Comparator.comparing(Employee::getAge).thenComparing(Employee::getName);
 &lt;&lt;toc-selective-expandable 'ContentTable' sort[ind]&gt;&gt;
 
 &lt;/div&gt;</pre>
+</div>
+<div created="20190201093653742" creator="xinhuagu" modified="20190201093727158" modifier="xinhuagu" tags="[[Clean Code]]" title="Effective Java">
+<pre></pre>
 </div>
 <div created="20190129233026428" creator="xinhuagu" modified="20190129233502705" modifier="xinhuagu" tags="Math" title="int 和 long 的互转">
 <pre>```
