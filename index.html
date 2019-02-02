@@ -209,6 +209,10 @@ Error message and password prompt
 
 <li>$:/state/toc/ContentTable/Java/Stream-Collectors-306120943</li>
 
+<li>$:/state/toc/ContentTable/Reactive-Project reactive-306120943</li>
+
+<li>$:/state/toc/ContentTable/Reactive/Project reactive-Flux-306120943</li>
+
 <li>$:/state/toc/TableOfContents-Head1--1738364587</li>
 
 <li>$:/state/toc/TableOfContents-Head1-306120943</li>
@@ -249,6 +253,10 @@ Error message and password prompt
 
 <li>Effective Java</li>
 
+<li>Flux</li>
+
+<li>Flux.using  .usingWhen</li>
+
 <li>int 和 long 的互转</li>
 
 <li>Java</li>
@@ -266,6 +274,8 @@ Error message and password prompt
 <li>Optional.map .filter</li>
 
 <li>orElse() 和 orElseGet()的区别</li>
+
+<li>pragramatically create Flux</li>
 
 <li>Project reactive</li>
 
@@ -9494,7 +9504,7 @@ return &quot;&quot;;
 <div created="20190129093450412" creator="xinhuagu" modified="20190201095329910" modifier="xinhuagu" title="$:/state/sidebar">
 <pre>yes</pre>
 </div>
-<div created="20190129004201664" creator="xinhuagu" modified="20190201113714745" modifier="xinhuagu" title="$:/state/tab/sidebar--595412856">
+<div created="20190129004201664" creator="xinhuagu" modified="20190201213501314" modifier="xinhuagu" title="$:/state/tab/sidebar--595412856">
 <pre>ContentTable</pre>
 </div>
 <div created="20190201093711701" creator="xinhuagu" modified="20190201151251136" modifier="xinhuagu" title="$:/state/toc/ContentTable-Clean Code-306120943">
@@ -9506,11 +9516,11 @@ return &quot;&quot;;
 <div created="20190130124101642" creator="xinhuagu" modified="20190130124103300" modifier="xinhuagu" title="$:/state/toc/ContentTable-Java--1738364587">
 <pre>close</pre>
 </div>
-<div created="20190129094217559" creator="xinhuagu" modified="20190201151252200" modifier="xinhuagu" title="$:/state/toc/ContentTable-Java-306120943">
+<div created="20190129094217559" creator="xinhuagu" modified="20190201215942516" modifier="xinhuagu" title="$:/state/toc/ContentTable-Java-306120943">
 <pre>open</pre>
 </div>
-<div created="20190130204628419" creator="xinhuagu" modified="20190201104018156" modifier="xinhuagu" title="$:/state/toc/ContentTable-Reactive-306120943">
-<pre>close</pre>
+<div created="20190130204628419" creator="xinhuagu" modified="20190201213801548" modifier="xinhuagu" title="$:/state/toc/ContentTable-Reactive-306120943">
+<pre>open</pre>
 </div>
 <div created="20190130204624036" creator="xinhuagu" modified="20190201104015908" modifier="xinhuagu" title="$:/state/toc/ContentTable-Spring-306120943">
 <pre>close</pre>
@@ -9542,6 +9552,12 @@ return &quot;&quot;;
 <div created="20190129234414586" creator="xinhuagu" modified="20190130153230333" modifier="xinhuagu" title="$:/state/toc/ContentTable/Java/Stream-Collectors-306120943">
 <pre>open</pre>
 </div>
+<div created="20190201213829196" creator="xinhuagu" modified="20190201213829196" modifier="xinhuagu" title="$:/state/toc/ContentTable/Reactive-Project reactive-306120943">
+<pre>open</pre>
+</div>
+<div created="20190201213830836" creator="xinhuagu" modified="20190201213830836" modifier="xinhuagu" title="$:/state/toc/ContentTable/Reactive/Project reactive-Flux-306120943">
+<pre>open</pre>
+</div>
 <div created="20190129010642024" modified="20190129010642024" title="$:/state/toc/TableOfContents-Head1--1738364587">
 <pre>open</pre>
 </div>
@@ -9551,7 +9567,7 @@ return &quot;&quot;;
 <div created="20190129013606961" creator="x" modified="20190129013608371" modifier="xinhuag" title="$:/status/UserName">
 <pre>xinhuagu</pre>
 </div>
-<div created="20190201153817571" creator="xinhuagu" list="Junit5 Java" modified="20190201153817571" modifier="xinhuagu" title="$:/StoryList">
+<div created="20190201153817571" creator="xinhuagu" list="[[Flux.using  .usingWhen]] [[Stream.iterate .generate]] [[pragramatically create Flux]] Flux [[Project reactive]]" modified="20190201215948138" modifier="xinhuagu" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -9865,6 +9881,52 @@ Comparator.comparing(Employee::getAge).thenComparing(Employee::getName);
 <div created="20190201093653742" creator="xinhuagu" modified="20190201093727158" modifier="xinhuagu" tags="[[Clean Code]]" title="Effective Java">
 <pre></pre>
 </div>
+<div created="20190201213509973" creator="xinhuagu" modified="20190201223506532" modifier="xinhuagu" tags="[[Project reactive]]" title="Flux">
+<pre>https://my.oschina.net/yimingblog/blog/1789903</pre>
+</div>
+<div created="20190201223113734" creator="xinhuagu" modified="20190201224539916" modifier="xinhuagu" tags="Flux" title="Flux.using  .usingWhen">
+<pre>
+```
+Flux&lt;String&gt; ioRequestResults = Flux.using(                        
+    Connection::newConnection,                                     
+    connection -&gt; Flux.fromIterable(connection.getData()),         
+    Connection::close                                              
+);
+
+ioRequestResults.subscribe(                                        
+   data -&gt; log.info(&quot;Received data: {}&quot;, data),                    
+   e -&gt; log.info(&quot;Error: {}&quot;, e.getMessage()),                     
+   () -&gt; log.info(&quot;Stream finished&quot;));                             
+```
+connection是autoclosable的一个实现。上面的代码取代了以前不用reactive的代码
+
+
+```
+try (Connection conn = Connection.newConnection()) {                
+   conn.getData().forEach(                                           
+       data -&gt; log.info(&quot;Received data: {}&quot;, data)
+   );
+} catch (Exception e) {                                            
+   log.info(&quot;Error: {}&quot;, e.getMessage());
+}
+```
+Similarly to the using operator, the usingWhen operator allows us manage resources in the reactive way. However, the using operator retrieves the managed resource synchronously (by calling the Callable instance). At the same time, the usingWhen operator retrieves the managed resource reactively (by subscribing to the instance of Publisher). Additionally, the usingWhen operator accepts different handlers for the successful and unsuccessful termination of the main processing stream. Those handlers are implemented by publishers. That distinction allows the implementation of completely non-blocking reactive transactions with only one operator. 
+
+```
+
+Flux.usingWhen(
+    Transaction.beginTransaction(),                                  
+    transaction -&gt; transaction.insertRows(Flux.just(&quot;A&quot;, &quot;B&quot;, &quot;C&quot;)), 
+    Transaction::commit,                                            
+    Transaction::rollback                                            
+).subscribe(
+    d -&gt; log.info(&quot;onNext: {}&quot;, d),
+    e -&gt; log.info(&quot;onError: {}&quot;, e.getMessage()),
+    () -&gt; log.info(&quot;onComplete&quot;)
+);
+```
+</pre>
+</div>
 <div created="20190129233026428" creator="xinhuagu" modified="20190129233502705" modifier="xinhuagu" tags="Math" title="int 和 long 的互转">
 <pre>```
 Math.toIntExact(long)
@@ -9962,6 +10024,78 @@ Optional.orElse(method());
 JHM性能比较下来，orElseGet性能最好
 </pre>
 </div>
+<div created="20190201213532636" creator="xinhuagu" modified="20190201220836752" modifier="xinhuagu" tags="Flux" title="pragramatically create Flux">
+<pre>! 1. generate
+
+```
+Flux&lt;String&gt; flux = Flux.generate(
+    () -&gt; 0, 
+    (state, sink) -&gt; {
+      sink.next(&quot;3 x &quot; + state + &quot; = &quot; + 3*state); 
+      if (state == 10) sink.complete(); 
+      return state + 1; 
+    });
+```
+
+上面的代码生成了“3 x”的乘法表：3x0 到3x10
+''单线程产生''
+
+或者
+
+```
+Flux&lt;String&gt; flux = Flux.generate(
+    AtomicLong::new, 
+    (state, sink) -&gt; {
+      long i = state.getAndIncrement(); 
+      sink.next(&quot;3 x &quot; + i + &quot; = &quot; + 3*i);
+      if (i == 10) sink.complete();
+      return state; 
+    });
+```
+
+下面是一个在 generate 方法中增加 Consumer 的例子
+
+```
+Flux&lt;String&gt; flux = Flux.generate(
+    AtomicLong::new,
+      (state, sink) -&gt; { 
+      long i = state.getAndIncrement(); 
+      sink.next(&quot;3 x &quot; + i + &quot; = &quot; + 3*i);
+      if (i == 10) sink.complete();
+      return state; 
+    }, (state) -&gt; System.out.println(&quot;state: &quot; + state)); 
+}
+```
+如果 state 使用了数据库连接或者其他需要最终进行清理的资源，这个 Consumer lambda 可以用来在最后关闭连接或完成相关的其他清理任务
+
+例子
+斐波拉契数
+
+
+```
+Flux.generate(                                                     
+    () -&gt; Tuples.of(0L, 1L),                                        
+    (state, sink) -&gt; {                                             
+        log.info(&quot;generated value: {}&quot;, state.getT2());           
+        sink.next(state.getT2());                                  
+        long newValue = state.getT1() + state.getT2();             
+        return Tuples.of(state.getT2(), newValue);                 
+    })
+    .delayElements(Duration.ofMillis(1))                           
+    .take(7)                                                       
+    .subscribe(e -&gt; log.info(&quot;onNext: {}&quot;, e));                    
+```
+Stream的例子看[[Stream.iterate .generate|Stream.iterate .generate]]
+
+
+! 2. Create
+作为一个更高级的创建 Flux 的方式， create 方法的生成方式既可以是同步， 也可以是异步的，并且还可以每次发出多个元素。
+
+该方法用到了 FluxSink，后者同样提供 next，error 和 complete 等方法。 与 generate 不同的是，create 不需要状态值，另一方面，它可以在回调中触发 多个事件（即使是在未来的某个时间）。
+
+! 3. Push
+create 的一个变体是 push，适合生成事件流。与 create`类似，`push 也可以是异步地， 并且能够使用以上各种溢出策略（overflow strategies）管理背压。每次只有一个生成线程可以调用 next，complete 或 error。</pre>
+</div>
 <div created="20190130204553672" creator="xinhuagu" modified="20190130204643996" modifier="xinhuagu" tags="Reactive Spring" title="Project reactive">
 <pre>http://www.kousenit.com/reactivespring/#_spring_webflux_with_functional_endpoints</pre>
 </div>
@@ -10015,7 +10149,7 @@ optional&lt;T&gt; reduce(BinaryOperator&lt;T&gt; accumulator);
 
 </pre>
 </div>
-<div created="20190129235418065" creator="xinhuagu" modified="20190130000504323" modifier="xinhuagu" tags="Stream" title="Stream.iterate .generate">
+<div created="20190129235418065" creator="xinhuagu" modified="20190201220717624" modifier="xinhuagu" tags="Stream" title="Stream.iterate .generate">
 <pre>```
 &lt;T&gt; Stream&lt;T&gt; iterate(final T seed, final UnaryOperator&lt;T&gt; f) 
 ```
@@ -10030,6 +10164,15 @@ Stream&lt;T&gt; iterate(T seed, Predicate&lt;? super T&gt; hasNext, UnaryOperato
 
 
 &lt;T&gt; Stream&lt;T&gt; generate(Supplier&lt;? extends T&gt; s)
+```
+
+例子 斐波拉契数
+
+
+```
+Stream.iterate(
+           new long[]{ 1, 1 }, p-&gt;new long[]{ p[1], p[0]+p[1]}
+).limit(92).forEach(p-&gt;System.out.println(p[0]));
 ```
 
 </pre>
