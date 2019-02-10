@@ -193,6 +193,8 @@ Error message and password prompt
 
 <li>$:/state/toc/ContentTable-Test-306120943</li>
 
+<li>$:/state/toc/ContentTable-Vim-306120943</li>
+
 <li>$:/state/toc/ContentTable/Clean Code-Effective Java-306120943</li>
 
 <li>$:/state/toc/ContentTable/Head1-Head2-306120943</li>
@@ -229,7 +231,11 @@ Error message and password prompt
 
 <li>$:/themes/tiddlywiki/vanilla</li>
 
+<li>编辑</li>
+
 <li>得到stream流动元素中的最大值几种方法</li>
+
+<li>移动和查找</li>
 
 <li>Clean Code</li>
 
@@ -292,6 +298,8 @@ Error message and password prompt
 <li>TEST</li>
 
 <li>Test</li>
+
+<li>Vim</li>
 
 </ul>
 </p>
@@ -9495,10 +9503,10 @@ return &quot;&quot;;
 <div created="20190128214536385" modified="20190129013542514" title="$:/SiteTitle">
 <pre>技术手册</pre>
 </div>
-<div created="20190129094456809" creator="xinhuagu" modified="20190201111952010" modifier="xinhuagu" title="$:/state/editpreviewtype">
+<div created="20190129094456809" creator="xinhuagu" modified="20190209152751424" modifier="xinhuagu" title="$:/state/editpreviewtype">
 <pre>$:/core/ui/EditTemplate/body/preview/output</pre>
 </div>
-<div created="20190129094457887" creator="xinhuagu" modified="20190201112432844" modifier="xinhuagu" title="$:/state/showeditpreview">
+<div created="20190129094457887" creator="xinhuagu" modified="20190209152757472" modifier="xinhuagu" title="$:/state/showeditpreview">
 <pre>no</pre>
 </div>
 <div created="20190129093450412" creator="xinhuagu" modified="20190201095329910" modifier="xinhuagu" title="$:/state/sidebar">
@@ -9516,16 +9524,19 @@ return &quot;&quot;;
 <div created="20190130124101642" creator="xinhuagu" modified="20190130124103300" modifier="xinhuagu" title="$:/state/toc/ContentTable-Java--1738364587">
 <pre>close</pre>
 </div>
-<div created="20190129094217559" creator="xinhuagu" modified="20190201215942516" modifier="xinhuagu" title="$:/state/toc/ContentTable-Java-306120943">
-<pre>open</pre>
+<div created="20190129094217559" creator="xinhuagu" modified="20190209122609025" modifier="xinhuagu" title="$:/state/toc/ContentTable-Java-306120943">
+<pre>close</pre>
 </div>
-<div created="20190130204628419" creator="xinhuagu" modified="20190201213801548" modifier="xinhuagu" title="$:/state/toc/ContentTable-Reactive-306120943">
-<pre>open</pre>
+<div created="20190130204628419" creator="xinhuagu" modified="20190209122610558" modifier="xinhuagu" title="$:/state/toc/ContentTable-Reactive-306120943">
+<pre>close</pre>
 </div>
 <div created="20190130204624036" creator="xinhuagu" modified="20190201104015908" modifier="xinhuagu" title="$:/state/toc/ContentTable-Spring-306120943">
 <pre>close</pre>
 </div>
-<div created="20190201145218611" creator="xinhuagu" modified="20190201145218612" modifier="xinhuagu" title="$:/state/toc/ContentTable-Test-306120943">
+<div created="20190201145218611" creator="xinhuagu" modified="20190209122612278" modifier="xinhuagu" title="$:/state/toc/ContentTable-Test-306120943">
+<pre>close</pre>
+</div>
+<div created="20190209152108144" creator="xinhuagu" modified="20190209152108144" modifier="xinhuagu" title="$:/state/toc/ContentTable-Vim-306120943">
 <pre>open</pre>
 </div>
 <div created="20190201094525466" creator="xinhuagu" modified="20190201113701198" modifier="xinhuagu" title="$:/state/toc/ContentTable/Clean Code-Effective Java-306120943">
@@ -9567,7 +9578,7 @@ return &quot;&quot;;
 <div created="20190129013606961" creator="x" modified="20190129013608371" modifier="xinhuag" title="$:/status/UserName">
 <pre>xinhuagu</pre>
 </div>
-<div created="20190201153817571" creator="xinhuagu" list="[[Flux.using  .usingWhen]] [[Stream.iterate .generate]] [[pragramatically create Flux]] Flux [[Project reactive]]" modified="20190201215948138" modifier="xinhuagu" title="$:/StoryList">
+<div created="20190209134037890" creator="xinhuagu" list="移动和查找 编辑 Vim Java" modified="20190209152109600" modifier="xinhuagu" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -9615,11 +9626,11 @@ return &quot;&quot;;
         },
         &quot;$:/info/browser/screen/width&quot;: {
             &quot;title&quot;: &quot;$:/info/browser/screen/width&quot;,
-            &quot;text&quot;: &quot;1280&quot;
+            &quot;text&quot;: &quot;960&quot;
         },
         &quot;$:/info/browser/screen/height&quot;: {
             &quot;title&quot;: &quot;$:/info/browser/screen/height&quot;,
-            &quot;text&quot;: &quot;800&quot;
+            &quot;text&quot;: &quot;600&quot;
         }
     }
 }</pre>
@@ -9736,6 +9747,36 @@ return &quot;&quot;;
     }
 }</pre>
 </div>
+<div created="20190209134040695" creator="xinhuagu" modified="20190209175801457" modifier="xinhuagu" tags="Vim" title="编辑">
+<pre>repeat the change:  ''.''
+
+undo the change:  ''u''
+
+删除一行: ''dd''
+
+删除一个单词：''daw'' ''diw'' 减掉一个单词： ''caw ciw''
+
+删除一个句子：''das dis''
+
+删除一个段落：''dap dip''
+
+
+缩进: ''&gt;&gt;'' 到文章末所有都缩进：''&gt;G''
+
+拷贝整个一行，不管光标在哪里：''S''
+
+剪裁掉光标后面到句末的所有内容：''C''
+
+插入句首开始编辑：''I''
+
+Perform substitution(只作用在光标的那一行）  '' :s/target/replacement     &amp; ''    
+Execute a sequence of changes这里x是一个字符。所有改动会被保存在这个字符为代号的缓存里面。   '' qx{changes}q       @x''
+
+改变多个在文中出现的单词。首先在这个单词上放上光标。然后 ''*'' vim会标记所有文中这个单词。接着''ciw 要换上的字''。退出后 ''n''到下面一个单词上''.''重复动作。效果和'':%s/word/replacement/g''一样的。
+
+
+</pre>
+</div>
 <div created="20190129224610409" creator="xinhuagu" modified="20190129225321276" modifier="xinhuagu" tags="Stream" title="得到stream流动元素中的最大值几种方法">
 <pre>```
 final Stream&lt;Long&gt; fibStream = makeFibStream(10);
@@ -9759,6 +9800,13 @@ mapToLong().max()
 
 
 
+
+</pre>
+</div>
+<div created="20190209152014864" creator="xinhuagu" modified="20190209152932014" modifier="xinhuagu" tags="Vim" title="移动和查找">
+<pre>找到下个符号c：fc
+
+重复上一个查找：；或者 ，（反向）
 
 </pre>
 </div>
@@ -9885,8 +9933,7 @@ Comparator.comparing(Employee::getAge).thenComparing(Employee::getName);
 <pre>https://my.oschina.net/yimingblog/blog/1789903</pre>
 </div>
 <div created="20190201223113734" creator="xinhuagu" modified="20190201224539916" modifier="xinhuagu" tags="Flux" title="Flux.using  .usingWhen">
-<pre>
-```
+<pre>```
 Flux&lt;String&gt; ioRequestResults = Flux.using(                        
     Connection::newConnection,                                     
     connection -&gt; Flux.fromIterable(connection.getData()),         
@@ -10222,6 +10269,9 @@ Stream&lt;String&gt; collectionAsStream(Collection&lt;String&gt; collection) {
 df[[打发斯蒂芬]]</pre>
 </div>
 <div created="20190201145125753" creator="xinhuagu" modified="20190201145142092" modifier="xinhuagu" tags="ContentTable" title="Test">
+<pre></pre>
+</div>
+<div created="20190209123259811" creator="xinhuagu" modified="20190209123311285" modifier="xinhuagu" tags="ContentTable" title="Vim">
 <pre></pre>
 </div>
 
