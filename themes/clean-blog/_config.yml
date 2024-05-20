@@ -3,7 +3,7 @@ menu:
   Home: /
   Archives: /archives
   Tags: /tags
-  Categories: /categories
+  #Categories: /categories
   Github:
     url: https://github.com/xinhuagu/xinhuagu.github.io
     icon: github
